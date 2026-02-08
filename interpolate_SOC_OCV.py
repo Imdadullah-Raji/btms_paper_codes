@@ -1,7 +1,14 @@
 import numpy as np
 import pandas as pd
 
-def interpolate_soc_ocv(soc_values, ocv_values):
+df1 = pd.read_csv('soc_ocv_data.csv') 
+df2 = pd.read_csv('soc_ocv_temperature_derivative_data.csv')
+#print(df1.head())
+#print(df2.head())
+#df2.columns = df2.columns.str.strip()
+
+def interpolate_soc_ocv(soc_values= df1['SOC'].values, 
+                        ocv_values= df1['OCV'].values):
     """
     Create an interpolation function for SOC vs OCV.
 
@@ -22,7 +29,8 @@ def interpolate_soc_ocv(soc_values, ocv_values):
         return np.interp(soc, soc_values, ocv_values)
     
     return ocv_interpolation
-def interpolate_soc_ocv_temperature_derivative(soc_values, dEdT_values):
+def interpolate_soc_ocv_temperature_derivative(soc_values= df2['SOC'].values,
+                                                dEdT_values= df2['dEdt'].values):
     """
     Create an interpolation function for SOC vs temperature derivative of OCV.
 
